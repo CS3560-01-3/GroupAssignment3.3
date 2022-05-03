@@ -10,7 +10,7 @@ public class DBFunc {
 //  change url dependently
 	static String url = "jdbc:mysql://127.0.0.1:3306/groupassignment";
 	static String user = "root";
-	static String password = "Jokerstom123";
+	static String password = "---";
 
 	static Connection conn = null;
 	static Statement stmt = null;
