@@ -1,6 +1,7 @@
 package application;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ public class DBFunc {
 //  change url dependently
 	static String url = "jdbc:mysql://127.0.0.1:3306/groupassignment";
 	static String user = "root";
-	static String password = "---";
+	static String password = "Jokerstom123";
 
 	static Connection conn = null;
 	static Statement stmt = null;
@@ -138,5 +139,29 @@ public class DBFunc {
 		}
 		return out + 1;
 	}
+	public static String[][] getTable(String tableName, int rows, int colStart,int columns) {
+		String[][] data = new String[rows][columns-colStart];
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, user, password);
+			stmt = conn.createStatement();
+			
+			
+			ResultSet rs = stmt.executeQuery("Select * from "+tableName);
+			
+			int i = 0;
+			while(rs.next()) {
+				for(int j = 0;j<columns-1;j++) {
+					data[i][j]=rs.getString(j+1+colStart);
+				}
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return data;
+     }
 
 }
